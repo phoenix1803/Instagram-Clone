@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Save Login Info</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .main-content .save-login-box {
+            background-color: #121212;
+            padding: 30px;
+            border: 1px solid #262626;
+            border-radius: 10px;
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            margin: auto;
+        }
+
+        .main-content .save-login-box .icon {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .main-content .save-login-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .main-content .save-login-box p {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .main-content .save-login-box button {
+            background-color: #0095f6;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 80%;
+        }
+
+        .main-content .save-login-box button:hover {
+            background-color: #0078cc;
+        }
+
+        .main-content .save-login-box .not-now {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #b3b3b3;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .main-content .save-login-box .not-now:hover {
+            text-decoration: underline;
+        }
+
+       
+        @media (max-width: 768px) {
+            .main-content .save-login-box {
+                width: 90%; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <a href="#">
+                <img src="assets\logo.svg" alt="Instagram Logo" width="150" />
+            </a>
+            <a href="#">
+                <img src="assets\icons\home.svg" alt="Home" width="24" height="24"/>
+                Home
+            </a>
+            <a href="#">
+                <img src="assets\icons\search.svg" alt="Search" width="24" height="24"/>
+                Search
+            </a>
+            <a href="#">
+                <img src="assets\icons\compass.svg" alt="Explore" width="24" height="24"/>
+                Explore
+            </a>
+            <a href="#">
+                <img src="assets\icons\reels.svg" alt="Reels" width="24" height="24"/>
+                Reels
+            </a>
+            <a href="#">
+                <img src="assets\icons\messenger.svg" alt="Messages" width="24" height="24"/>
+                Messages
+                <span class="notification">2</span>
+            </a>
+            <a href="#">
+                <img src="assets/icons/heart.svg" alt="Notifications" width="24" height="24"/>
+                Notifications
+            </a>
+            <a href="#">
+                <img src="assets\icons\add.svg" alt="Create" width="24" height="24"/>
+                Create
+            </a>
+            <a href="#">
+                <img src="assets\default-user.png" alt="Profile" width="24" height="24"/>
+                Profile
+            </a>
+            <a href="#">
+                <img src="assets\icons\more.svg" alt="More" width="24" height="24"/>
+                More
+            </a>
+        </div>
+
+        <div class="main-content">
+            <div class="save-login-box">
+                <div class="icon">
+                    <img src="assets/icons/key.svg" alt="Key Icon" style="width: 50px; height: 50px;">
+                </div>
+                
+                <h2>Save your login info?</h2>
+                <p>We can save your login info on this browser so you don't need to enter it again.</p>
+                <button>Save Info</button>
+                <a href="home.html" class="not-now">Not now</a>
+            </div>
+        </div>
+        <div> <nav class="mobile-nav">
+            <nav class="mobile-nav">
+                <div class="mobile-nav-items">
+                    <a href="#"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+                    <a href="#"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+                    <a href="#"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+                    <a href="#"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+                    <a href="#"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+                    <a href="#"><img src="assets\default-user.png" alt="Notifications" width="24" height="24"></a>
+                </div>
+            </nav>
+        </nav></div>
+    </div>
+</body>
+</html>
