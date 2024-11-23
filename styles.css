@@ -77,8 +77,22 @@ body {
     font-size: 1rem;
 }
 
+.login-form button:disabled{
+    background-color: #025a99;
+    color: #868686;
+    cursor: default;
+    opacity: 0.7;
+}
+
+.login-form button:disabled:hover{
+    background-color: #025a99;
+    color: #868686;
+    cursor: default;
+}
+
 .login-form button:hover {
     background-color: #0078cc;
+    text-decoration: none;
 }
 
 .separator {
@@ -104,8 +118,8 @@ body {
 }
 
 .facebook-login img {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     margin-right: 8px;
 }
 
@@ -115,12 +129,20 @@ body {
     text-decoration: none;
 }
 
+.facebook-login a:hover{
+    color: #c2d1dc;
+}
+
 .forgot-password {
     color: #ffffff;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-decoration: none;
     margin-top: 15px;
     display: inline-block;
+}
+
+.forgot-password:hover{
+    color : #c2baba;
 }
 
 .signup {
