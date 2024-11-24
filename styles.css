@@ -225,6 +225,10 @@ body {
     .login-form h1 {
         font-size: 2rem; 
     }
+
+    .facebook-login{
+        font-size: medium;
+    }
 }
 
 }
