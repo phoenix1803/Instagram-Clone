@@ -135,7 +135,6 @@
 }
 body, .carousel-container {
     overflow-x: hidden;
-    touch-action: none;
 }
 
 @media (max-width: 768px) {
