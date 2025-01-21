@@ -133,6 +133,10 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+body, .carousel-container {
+    overflow-x: hidden;
+    touch-action: none;
+}
 
 @media (max-width: 768px) {
     .sidebar {
@@ -145,16 +149,23 @@
         width: 100%;
     }
     .post-media{
-        width: 100%;
+        width: 100vw; margin: 0;
+        padding: 0;
         max-height: 91vh;
         position: relative;
         left: -8%;
     }
+    body, .carousel-container {
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0px;
+    }
     
     .post {
         border-radius: 0;
-        border-left: none;
-        border-right: none;
+        border-left: 0px; margin: 0;
+        padding: 0px;
+        border-right:0px;
         width: 100%;
     }
     
@@ -166,8 +177,9 @@
         max-height: fit-content;
     }
     .carousel-item{
-        min-width: 100%;
-        width: 100%;
+        max-width: 100vw;
+        width: 100%; margin: 0;
+        padding: 0;
         flex-shrink: 0;
 
         max-height: fit-content;

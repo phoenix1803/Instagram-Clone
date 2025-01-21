@@ -6,6 +6,7 @@
     <title>Instagram</title>
     <link rel="icon" href="assets\instagram.png" type="image/png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="home.css">
 
@@ -15,11 +16,25 @@
     position: fixed;
     left: 66px;
     top: 0;
-    width: 100vw;
+    width: 397px;
     height: 100vh;
     background-color: #000;
     z-index: 1000;
     border-right: 1px solid #262626;
+}
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: block;
+        position: fixed;
+        max-width: 100vw;
+
+    }
+    
+
 }
 
 .search-modal-content {
@@ -132,6 +147,11 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+@media (max-width: 768px){
+    .search-modal{
+        display: none;
+    }
+}
     </style>
 </head>
 <body>
@@ -210,6 +230,16 @@
                     
                 </div>
             </div>
+            <nav class="mobile-nav">
+                <div class="mobile-nav-items">
+                    <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+                    <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+                    <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+                    <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+                    <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+                    <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
+                </div>
+            </nav>
 
             <div class="story-bar">
                 <div class="story">
@@ -510,20 +540,7 @@ function generateCarousel() {
     `;}
 }
 
-function generateStories() {
-    return `
-        <div class="stories-container">
-            ${stories.map(story => `
-                <div class="story ${story.isYou ? 'your-story' : ''}">
-                    <div class="story-ring">
-                        <img src="${story.image}" alt="${story.username}" />
-                    </div>
-                    <span>${story.isYou ? 'Your Story' : story.username}</span>
-                </div>
-            `).join('')}
-        </div>
-    `;
-}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.post-media').forEach(video => {
         let loopCount = 0; 

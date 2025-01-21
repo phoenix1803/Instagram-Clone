@@ -75,14 +75,14 @@
 @media (min-width: 1160px) {
    
     .sidebar a .username {
-        display: inline; /
+        display: inline; 
     }
 }
 
 @media (min-width: 1160px) {
    
     .sidebar a .username {
-        display: inline; /
+        display: inline; 
     }
 }
 
@@ -92,7 +92,7 @@
     }
 
     .sidebar {
-        width: 70px; /
+        width: 70px; 
     }
 
     .sidebar a {
@@ -125,6 +125,7 @@
         display: block;
         position: fixed;
         max-height: 100vh;
+        max-width: 100vw;
 
     }
 
