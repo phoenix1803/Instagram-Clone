@@ -21,6 +21,16 @@
             box-sizing: border-box;
             margin: auto;
         }
+        .main-content {
+    flex: 1;
+    margin-left: 250px; 
+    margin-right: 300px; 
+    padding: 20px;
+    max-width: calc(100% - 550px);
+    box-sizing: border-box; 
+    transition: margin 0.3s ease, max-width 0.3s ease;
+
+}
 
         .main-content .save-login-box .icon {
             width: 60px;
@@ -55,6 +65,11 @@
             cursor: pointer;
             width: 80%;
         }
+        @media (min-width:800px){
+    .mobile-nav{
+                display: none;
+            }
+}
 
         .main-content .save-login-box button:hover {
             background-color: #0078cc;
@@ -79,6 +94,15 @@
         @media (max-width: 768px) {
             .main-content .save-login-box {
                 width: 90%; 
+                
+            }
+            .save-login-box {
+                width: 90vw; 
+                margin: 0;
+                padding: 0;
+                position: relative;
+                top: 40%;
+                right: 25%;
             }
         }
     </style>
@@ -126,7 +150,7 @@
                 More
             </a>
         </div>
-
+        
         <div class="main-content">
             <div class="save-login-box">
                 <div class="icon">
@@ -139,18 +163,19 @@
                 <a href="home.html" class="not-now">Not now</a>
             </div>
         </div>
-        <div> <nav class="mobile-nav">
-            <nav class="mobile-nav">
-                <div class="mobile-nav-items">
-                    <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
-                    <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
-                    <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
-                    <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
-                    <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
-                    <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
-                </div>
-            </nav>
-        </nav></div>
+        <nav class="mobile-nav">
+            <div class="mobile-nav-items">
+                <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+                <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+                <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+                <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+                <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+                <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
+            </div>
+        </nav>
+        
+            
+        
     </div>
 </body>
 </html>
