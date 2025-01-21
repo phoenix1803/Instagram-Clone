@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reels</title>
+    <link rel="icon" href="assets\instagram.png" type="image/png" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+    max-width: 100%; 
+    margin: 0 auto;
+    flex-wrap: wrap;
+    min-width: 375px;
+        }
+
+        .nav-items {
+            width: 250px;
+    background-color: #000; 
+    padding: 15px;
+    height: 100vh;
+    position: fixed;
+    border-right: 1px solid #262626;
+    top: 0;
+    left: 0;
+    z-index: 10;
+        }
+
+        .nav-items h1 {
+    font-family: 'Instagram Sans', sans-serif;
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    margin-bottom: 32px;
+}
+.nav-items a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    gap: 16px; 
+    transition: background-color 0.3s ease;
+}
+
+.nav-items a:hover {
+    background-color: #1a1a1a; 
+}
+
+.nav-items a svg {
+    fill: #fff; 
+    width: 24px; 
+    height: 24px;
+}
+        .pause-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: white;
+    pointer-events: none; 
+    opacity: 0.8;
+    z-index: 10; 
+    transition: opacity 0.3s ease;
+}
+
+
+        .nav-item {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: #1a1a1a;
+        }
+
+        .nav-item.active {
+            color: #fff;
+        }
+
+        .reels-container {
+            flex: 1;
+            margin-left: 72px;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reels-scroll {
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .reels-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .controls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+}
+        .reel {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            scroll-snap-align: center;
+            background: #000;
+        }
+
+        .reel video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            left: 0%;
+
+        }
+
+        .reel-controls {
+            position: absolute;
+            right: 32vw;
+            transform: scale(0.8);
+            bottom: 2%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .control-item i {
+            font-size: 24px;
+            font-weight: 10;
+        }
+
+        .control-item span {
+            font-size: 12px;
+        }
+
+        .control-item:nth-child(3) {
+           position: relative;
+           margin-bottom: 7px;
+        }
+
+        .control-item:hover {
+           opacity: 0.6;
+        }
+
+     
+
+        .control-item:nth-child(5) {
+            display: block;     
+            position: relative;
+            margin-top: 1px;
+             margin-bottom: 1px;
+                }
+
+
+        .nav-buttons {
+            position: fixed;
+            right: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+       
+        .reel-info {
+            position: absolute;
+            bottom: 0;
+            left: 36%;
+            padding: 20px;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        }
+
+        .reel-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .reel-user img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .reel-user span {
+            font-weight: 600;
+        }
+
+        .follow-btn {
+            background: transparent;
+            border: none;
+            font-size: 10px;
+            color: #0095f6;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: right;
+            position: relative;
+            top: 1.1px;
+            left: 8px;
+        }
+        
+
+        .follow-btn:hover{
+            color:aliceblue
+        }
+
+        .reel-description {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .reel-audio {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        @media (min-width:1160px){
+            .mobile-nav-items{
+            display: none;
+        }
+        }
+
+        @media (max-width: 768px) {
+           
+            .reel-info{
+                position: absolute;
+                left:0;
+                padding-bottom: 7%;
+                margin-bottom: 9.9%;
+            }
+            .pause-icon{
+                position: fixed;
+                align-items: center;
+            }
+
+            .reel video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            left: 0%;
+
+        }
+      
+
+          
+            .reels-container {
+                margin-left: 0;
+                margin-bottom: 60px;
+            }
+
+            .nav-buttons {
+                display: none;
+            }
+
+            .reel-controls {
+                right: 10px;
+                position: absolute;
+                
+                gap: 29px;
+                transform: scale(0.9);
+                margin-bottom: 4vh;
+                
+            }
+
+            .control-item:last-child,.control-item:nth-child(4){
+                display: none;
+                
+            }
+           
+
+            .control-item:hover {
+           opacity: 0.6;
+        }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .mobile.nav{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <a href="index.html">
+                <img src="assets\logo.svg" alt="Instagram Logo" width="150" />
+            </a>
+            <a href="home.html">
+                <img src="assets\icons\home.svg" alt="Home" width="24" height="24"/>
+                Home
+            </a>
+            <a href="#" id="searchBtn">
+                <img src="assets\icons\search.svg" alt="Search" width="24" height="24"/>
+                Search
+            </a>
+            <a href="explore.html">
+                <img src="assets\icons\compass.svg" alt="Explore" width="24" height="24"/>
+                Explore
+            </a>
+            <a href="reels.html">
+                <img src="assets\icons\reels.svg" alt="Reels" width="24" height="24"/>
+                Reels
+            </a>
+            <a href="messeges.html">
+                <img src="assets\icons\messenger.svg" alt="Messages" width="24" height="24"/>
+                Messages
+            </a>
+            <a href="notification.html">
+                <img src="assets/icons/heart.svg" alt="Notifications" width="24" height="24"/>
+                Notifications
+            </a>
+            <a href="create.html">
+                <img src="assets\icons\add.svg" alt="Create" width="24" height="24"/>
+                Create
+            </a>
+            <a href="profile.html">
+                <img src="assets\my.pfp.jpg" alt="Profile" width="24" height="24"/>
+                Profile       
+            </a>
+            <a href="settings.html">
+                <img src="assets\icons\more.svg" alt="More" width="24" height="24"/>
+                More
+            </a>
+        </div>
+        <div class="search-modal" id="searchModal">
+            <div class="search-modal-content">
+                <div class="search-header">
+                    <h2>Search</h2>
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search" />
+                        
+                    </div>
+                </div>
+                <div class="recent-searches">
+                    <div class="recent-header">
+                        <h3>Recent</h3>
+                        <span class="clear-all">Clear all</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="search-overlay" id="searchOverlay"></div>
+        </div>
+    <div class="mobile-nav">
+            <div class="mobile-nav-items">
+                <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+                <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+                <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+                <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+                <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+                <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
+            </div>
+    </div>
+    <div class="reels-container">
+            <div class="reels-scroll" id="reelsScroll">
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="nav-btn" id="nextBtn">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+    </div>
+</div>
+<script src="nav.js"></script>
+
+    <script>
+        const VIDEO_COUNT = 26;
+        const VIDEO_PATH = 'assets/reels/';
+        const videoFiles = Array.from({ length: VIDEO_COUNT }, (_, i) => `${VIDEO_PATH}video${i + 1}.mp4`);
+    
+        const PFP_COUNT = 18;
+        const PFP_PATH = 'assets/pfp/';
+        const pfpFiles = Array.from({ length: PFP_COUNT }, (_, i) => `${PFP_PATH}${i + 1}.jpg`);
+    
+        let loadedVideos = new Set();
+        let loadedPfps = new Set();
+        let isLoading = false;
+        let currentVideoIndex = 0;
+    
+        const reelsScroll = document.getElementById('reelsScroll');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+    
+        function getRandomVideo() {
+            const availableVideos = videoFiles.filter(video => !loadedVideos.has(video));
+            if (availableVideos.length === 0) {
+                loadedVideos.clear();
+                return videoFiles[Math.floor(Math.random() * videoFiles.length)];
+            }
+            const randomVideo = availableVideos[Math.floor(Math.random() * availableVideos.length)];
+            loadedVideos.add(randomVideo);
+            return randomVideo;
+        }
+    
+        function getRandomPfp() {
+            const availablePfps = pfpFiles.filter(pfp => !loadedPfps.has(pfp));
+            if (availablePfps.length === 0) {
+                loadedPfps.clear();
+                return pfpFiles[Math.floor(Math.random() * pfpFiles.length)];
+            }
+            const randomPfp = availablePfps[Math.floor(Math.random() * availablePfps.length)];
+            loadedPfps.add(randomPfp);
+            return randomPfp;
+        }
+    
+        function createReelElement(videoSrc) {
+            const reel = document.createElement('div');
+            reel.className = 'reel fade-in';
+    
+            const video = document.createElement('video');
+            video.src = videoSrc;
+            video.loop = true;
+            video.muted = false;
+            video.playsInline = true;
+    
+            const pfp = document.createElement('img');
+            pfp.src = getRandomPfp();
+    
+            const pauseIcon = document.createElement('div');
+            pauseIcon.className = 'pause-icon';
+            pauseIcon.innerHTML = '<i class="fas fa-play" ></i>';
+            pauseIcon.style.display = 'none';
+            pauseIcon.style.position = 'fixed';
+            pauseIcon.style.marginLeft="3%"
+            reel.appendChild(pauseIcon);
+    
+            video.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                    pauseIcon.style.display = 'none';
+                } else {
+                    video.pause();
+                    pauseIcon.style.display = 'block';
+                    setTimeout(() => pauseIcon.style.display = 'none', 650);
+                }
+            });
+    
+            video.addEventListener('loadstart', () => {
+                reel.classList.add('loading');
+            });
+    
+            video.addEventListener('canplay', () => {
+                reel.classList.remove('loading');
+            });
+    
+            const controls = document.createElement('div');
+            controls.className = 'reel-controls slide-up';
+            controls.innerHTML = `
+                <div class="control-item">
+                    <i class="far fa-heart heart-icon"></i>
+                    <span>${Math.floor(Math.random() * 500)}K</span>
+                </div>
+                <div class="control-item">
+                    <i class="far fa-comment"></i>
+                    <span>${Math.floor(Math.random() * 10)}K</span>
+                </div>
+                <div class="control-item">
+                    <i class="far fa-paper-plane"></i>
+                </div>
+                <div class="control-item">
+                    <i class="far fa-bookmark"></i>
+                </div>
+                <div class="nav-item">
+                    <img src="assets/icons/icons8-three-dots-50.png" style="width: 18px; height: 18px">
+                </div>
+                <div class="control-item">
+                    <img src="assets/pfp/s5.jpg" alt="More" width="24" height="24"/>
+                </div>
+            `;
+    
+            const catNames = [
+                "Whiskers", "Mittens", "Shadow", "Tiger", "Simba", "Luna", "Garfield", "Smokey",
+                "Cleo", "Felix", "Leo", "Milo", "Bella", "Nala", "Salem", "Oreo", "Jasper",
+                "Socks", "Pumpkin", "Oliver", "Marshmallow", "Snowball", "Pepper", "Cinnamon",
+                "Fluffy", "Mochi", "Toffee", "Paws", "Cookie", "Midnight", "Ash", "Boots",
+                "Daisy", "Hazel", "Gizmo", "Coco", "Chloe", "Ziggy", "Toby", "Maggie",
+                "Oscar", "Loki", "Biscuit", "Peanut", "Dusty", "Ace", "Sassy", "Lucky",
+                "Bandit", "Poppy", "Pixie", "Jinx", "Nova", "Lily", "Cupcake", "Finn",
+                "Waffles", "Sunny", "Mocha", "Raven", "Smudge", "Casper", "Pearl", "Amber",
+                "Blue", "Ruby", "Caramel", "Muffin", "Sushi", "Bubbles", "Pumpkin", "Jade"
+            ];
+
+            const Text = [
+        "Car go Meow 🗣️🗣️🗣️",
+        "When in doubt, give up",
+        "Moshi Moshi",
+        "Give up on your dreams and die",
+        "well hello there little one",
+        "May the force be with you",
+        "weeeeeeeeeeeeeeee","ゲキをたびる","Day 192","yeah you go be delulu","noot noot","Sure, here is the information about your mom....",
+        "Follow For More","Trust me you ain't it chief","Domain expansion: Infinite swamp","go back to sleep bye","hehe","what if we were two cats?",
+        "amen","Busy days-","Random as usual","Nothing is real","WE ARE TRAPPED","Send help pls",
+        "the eyes tony,they never lie","may your delulu become trulu","+1000 Aura","Breaking news: You are Gay","Pls go home no one wants you","THEY ARE COMING","OFF WITH THEIR HEAD","NOBODY IS REAL ANYWAYS",
+    ];
+
+    const randomText = Text[Math.floor(Math.random() * Text.length)];
+            const randomCatName = catNames[Math.floor(Math.random() * catNames.length)];
+            const randomNumber = Math.floor(Math.random() * 1000);
+    
+            const info = document.createElement('div');
+            info.className = 'reel-info slide-up';
+            info.innerHTML = `
+                <div class="reel-user">
+                    <img src="${getRandomPfp()}" alt="User">
+                    <span>${randomCatName}_${randomNumber}</span>
+                    <button class="follow-btn">Follow</button>
+                </div>
+                <div class="reel-description">
+                    ${randomText}
+                </div>
+                <div class="reel-audio">
+                    <i class="fas fa-music"></i>
+                    <span>Original Audio</span>
+                </div>
+            `;
+    
+            reel.appendChild(video);
+            reel.appendChild(controls);
+            reel.appendChild(info);
+            return reel;
+        }
+    
+        function appendNewReel() {
+            if (isLoading) return;
+            isLoading = true;
+            const videoSrc = getRandomVideo();
+            if (videoSrc) {
+                const reel = createReelElement(videoSrc);
+                reelsScroll.appendChild(reel);
+                videoObserver.observe(reel);
+            }
+            setTimeout(() => {
+                isLoading = false;
+            }, 300);
+        }
+    
+        function handleScroll() {
+            const reels = document.querySelectorAll('.reel');
+            reels.forEach((reel, index) => {
+                const rect = reel.getBoundingClientRect();
+                const video = reel.querySelector('video');
+                if (rect.top >= -rect.height / 2 && rect.top <= window.innerHeight / 2) {
+                    currentVideoIndex = index;
+                    video.play().catch(err => console.log('Playback error:', err));
+                } else {
+                    video.pause();
+                }
+            });
+    
+            const lastReel = reels[reels.length - 1];
+            if (lastReel) {
+                const rect = lastReel.getBoundingClientRect();
+                if (rect.bottom <= window.innerHeight + 300 && !isLoading) {
+                    appendNewReel();
+                }
+            }
+        }
+    
+        function handleNavButtons() {
+            prevBtn.addEventListener('click', () => {
+                const reels = document.querySelectorAll('.reel');
+                if (currentVideoIndex > 0) {
+                    currentVideoIndex--;
+                    reels[currentVideoIndex].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            });
+    
+            nextBtn.addEventListener('click', () => {
+                const reels = document.querySelectorAll('.reel');
+                if (currentVideoIndex < reels.length - 1) {
+                    currentVideoIndex++;
+                    reels[currentVideoIndex].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                const reels = document.querySelectorAll('.reel');
+                if (currentVideoIndex < reels.length - 1) {
+                    currentVideoIndex++;
+                    reels[currentVideoIndex].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            } else if (e.key === 'ArrowUp') {
+                const reels = document.querySelectorAll('.reel');
+                if (currentVideoIndex > 0) {
+                    currentVideoIndex--;
+                    reels[currentVideoIndex].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            }
+        });
+        const observerOptions = {
+            root: null,
+            rootMargin: '-10% 0px',
+            threshold: 0.6
+        };
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target.querySelector('video');
+                if (entry.isIntersecting) {
+                    video.play().catch(err => console.log('Playback error:', err));
+                } else {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
+        }, observerOptions);
+        document.addEventListener('DOMContentLoaded', () => {
+            initReels();
+            reelsScroll.addEventListener('scroll', handleScroll);
+            handleNavButtons();
+        });
+        function initReels() {
+            for (let i = 0; i < 4; i++) {
+                appendNewReel();
+            }
+            const firstVideo = reelsScroll.querySelector('video');
+            if (firstVideo) {
+                firstVideo.play().catch(err => console.log('Playback error:', err));
+            }
+        }
+                let touchStartY = 0;
+        let touchEndY = 0;
+
+        reelsScroll.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+        reelsScroll.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+        function handleSwipe() {
+            if (touchStartY - touchEndY > 50) {
+                const reels = document.querySelectorAll('.reel');
+                if (currentVideoIndex < reels.length - 1) {
+                    currentVideoIndex++;
+                    reels[currentVideoIndex].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            } else if (touchEndY - touchStartY > 50) {
+                const reels = document.querySelectorAll('.reel');
+                if (currentVideoIndex > 0) {
+                    currentVideoIndex--;
+                    reels[currentVideoIndex].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>

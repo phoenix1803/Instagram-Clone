@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets\instagram.png" type="image/png" />
+    <title>Notifications</title>
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #f5f5f5;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .notifications-container {
+            position: relative;
+            right: -4vw;
+            margin-left: 245px;
+            padding: 20px 20px 20px 0;
+            max-width: 600px;
+            color: #f5f5f5;
+            min-height: 100vh;
+            background-color: #000;
+        }
+
+        .notifications-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            padding: 12px 24px;
+            border-bottom: 1px solid #262626;
+        }
+
+        .notifications-section {
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f5f5f5;
+            margin-bottom: 12px;
+            padding: 0 24px;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+
+        .notification-item:hover {
+            background-color: #1a1a1a;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background-color: #262626;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .notification-content {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .search-box {
+            position: relative;
+            margin-bottom: 24px;
+            margin-right: 27px;
+        }
+
+        .username {
+            font-weight: 600;
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+
+        .notification-text {
+            color: #a8a8a8;
+            margin-right: 8px;
+        }
+
+        .notification-time {
+            color: #737373;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .notification-media {
+            width: 44px;
+            height: 44px;
+            margin-left: 12px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .notification-media.story {
+            border-radius: 50%;
+            border: 2px solid #262626;
+        }
+
+        .notification-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .follow-button {
+            background-color: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 7px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 12px;
+            min-width: 85px;
+            transition: background-color 0.2s;
+        }
+
+        .follow-button:hover {
+            background-color: #1877f2;
+        }
+
+        .following-button {
+            background-color: #262626;
+            color: #f5f5f5;
+        }
+
+        .notification-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #0095f6;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        .thread-link {
+            color: #0095f6;
+            text-decoration: none;
+            margin-top: 4px;
+            display: inline-block;
+            font-size: 12px;
+        }
+
+        .thread-link:hover {
+            color: #1877f2;
+        }
+
+        .likes-count {
+            font-weight: 600;
+            color: #0095f6;
+        }
+
+        @media (max-width: 1024px) {
+            .notifications-container {
+                max-width: 100%;
+                margin-left: 72px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .notifications-container {
+                position: relative;
+                left:1px;
+                margin-left: 0;
+                max-width:100vw;
+                margin-bottom: 60px;
+            }
+
+            .notifications-header {
+                margin-left: 0px;
+                margin-bottom: 1px;
+                margin-top: 2px;
+            }
+            .container{
+                max-width:100vw;
+            }
+
+            .section-header,
+            .notification-item {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notifications-container">
+        <h1 class="notifications-header">Notifications</h1>
+
+        <div class="notifications-section" id="notifications-list">
+        </div>
+    <div class="container">
+        <div class="sidebar">
+            <a href="index.html">
+                <img src="assets\logo.svg" alt="Instagram Logo" width="150" />
+            </a>
+            <a href="home.html">
+                <img src="assets\icons\home.svg" alt="Home" width="24" height="24"/>
+                Home
+            </a>
+            <a href="#" id="searchBtn">
+                <img src="assets\icons\search.svg" alt="Search" width="24" height="24"/>
+                Search
+            </a>
+            <a href="explore.html">
+                <img src="assets\icons\compass.svg" alt="Explore" width="24" height="24"/>
+                Explore
+            </a>
+            <a href="reels.html">
+                <img src="assets\icons\reels.svg" alt="Reels" width="24" height="24"/>
+                Reels
+            </a>
+            <a href="messeges.html">
+                <img src="assets\icons\messenger.svg" alt="Messages" width="24" height="24"/>
+                Messages
+            </a>
+            <a href="notification.html">
+                <img src="assets/icons/heart.svg" alt="Notifications" width="24" height="24"/>
+                Notifications
+            </a>
+            <a href="create.html">
+                <img src="assets\icons\add.svg" alt="Create" width="24" height="24"/>
+                Create
+            </a>
+            <a href="profile.html">
+                <img src="assets\my.pfp.jpg" alt="Profile" width="24" height="24"/>
+                Profile       
+            </a>
+            <a href="settings.html">
+                <img src="assets\icons\more.svg" alt="More" width="24" height="24"/>
+                More
+            </a>
+        </div>
+        <div class="search-modal" id="searchModal">
+            <div class="search-modal-content">
+                <div class="search-header">
+                    <h2>Search</h2>
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search" />
+                        
+                    </div>
+                </div>
+                <div class="recent-searches">
+                    <div class="recent-header">
+                        <h3>Recent</h3>
+                        <span class="clear-all">Clear all</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="search-overlay" id="searchOverlay"></div>
+        </div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-items">
+            <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+            <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+            <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+            <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+            <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+            <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
+        </div>
+        
+    </nav>
+    
+    
+    </div>
+    
+
+    <script>
+        const userNames = [
+            'john_doe', 'emma_smith', 'photo_lover', 'art_gallery', 'travel_bug',
+            'foodie_123', 'nature_clicks', 'city_explorer', 'fitness_guru', 'tech_geek',
+            'music_lover', 'bookworm', 'coffee_addict', 'sunset_chaser', 'urban_poet',
+            'mountain_climber', 'ocean_dreamer', 'sky_watcher', 'street_artist', 'dance_star',
+            'yoga_master', 'pet_lover', 'green_thumb', 'fashion_icon', 'movie_buff',
+            'game_master', 'food_critic', 'world_traveler', 'design_ninja', 'code_wizard',
+            'craft_maker', 'style_guru', 'bike_rider', 'surf_rider', 'snow_boarder',
+            'skate_pro', 'adventure_seeker', 'night_owl', 'early_bird', 'dream_chaser',
+            'life_lover', 'soul_seeker', 'mind_explorer', 'art_creator', 'story_teller',
+            'light_chaser', 'shadow_finder', 'color_hunter', 'pattern_maker', 'space_dreamer'
+        ];
+
+        const notificationTypes = [
+            {
+                type: 'follow',
+                template: (username) => `
+                    <div class="notification-dot"></div>
+                    <div class="user-avatar">
+                        <img src="assets/pfp/${Math.floor(Math.random() * 15) + 1}.jpg" alt="${username}">
+                    </div>
+                    <div class="notification-content">
+                        <a href="#" class="username">${username}</a>
+                        <span class="notification-text">started following you.</span>
+                        <div class="notification-time">${getRandomTime()}</div>
+                    </div>
+                    <button class="follow-button">Follow</button>
+                `
+            },
+            {
+                type: 'like_post',
+                template: (username) => `
+                    <div class="user-avatar">
+                        <img src="assets/pfp/${Math.floor(Math.random() * 15) + 1}.jpg" alt="${username}">
+                    </div>
+                    <div class="notification-content">
+                        <a href="#" class="username">${username}</a>
+                        <span class="notification-text">liked your post.</span>
+                        <div class="notification-time">${getRandomTime()}</div>
+                    </div>
+                    <div class="notification-media">
+                        <img src="assets/posts/${Math.floor(Math.random() * 9) + 1}.jpg" alt="Post">
+                    </div>
+                `
+            },
+            {
+                type: 'like_story',
+                template: (username) => `
+                    <div class="user-avatar">
+                        <img src="assets/pfp/${Math.floor(Math.random() * 15) + 1}.jpg" alt="${username}">
+                    </div>
+                    <div class="notification-content">
+                        <a href="#" class="username">${username}</a>
+                        <span class="notification-text">liked your story.</span>
+                        <div class="notification-time">${getRandomTime()}</div>
+                    </div>
+                    <div class="notification-media story">
+                        <img src="assets/my.pfp.jpg" alt="Story">
+                    </div>
+                `
+            },
+            {
+                type: 'comment',
+                template: (username) => `
+                    <div class="user-avatar">
+                        <img src="assets/pfp/${Math.floor(Math.random() * 15) + 1}.jpg" alt="${username}">
+                    </div>
+                    <div class="notification-content">
+                        <a href="#" class="username">${username}</a>
+                        <span class="notification-text">commented: "${getRandomComment()}"</span>
+                        <div class="notification-time">${getRandomTime()}</div>
+                    </div>
+                    <div class="notification-media">
+                        <img src="assets/explore/reels/${Math.floor(Math.random() * 15) + 1}.jpg" alt="Post">
+                    </div>
+                `
+            },
+            {
+                type: 'comment_likes',
+                template: (username) => `
+                    <div class="user-avatar">
+                        <img src="assets/pfp/${Math.floor(Math.random() * 15) + 1}.jpg" alt="${username}">
+                    </div>
+                    <div class="notification-content">
+                        <span class="notification-text">Your comment gained</span>
+                        <span class="likes-count">${Math.floor(Math.random() * 900 + 100)} likes</span>
+                        <div class="notification-time">${getRandomTime()}</div>
+                    </div>
+                `
+            },
+            {
+                type: 'thread',
+                template: (username) => `
+                    <div class="user-avatar">
+                        <img src="assets/pfp/${Math.floor(Math.random() * 15) + 1}.jpg" alt="${username}">
+                    </div>
+                    <div class="notification-content">
+                        <a href="#" class="username">${username}</a>
+                        <span class="notification-text">mentioned you in a thread.</span>
+                        <div class="notification-time">${getRandomTime()}</div>
+                        <a href="#" class="thread-link">View on Thread</a>
+                    </div>
+                `
+            },
+            {
+                type: 'note',
+                template: (username) => `
+                    <div class="user-avatar">
+                        <img src="assets/pfp/${Math.floor(Math.random() * 15) + 1}.jpg" alt="${username}">
+                    </div>
+                    <div class="notification-content">
+                        <a href="#" class="username">${username}</a>
+                        <span class="notification-text">added a note: "${getRandomNote()}"</span>
+                        <div class="notification-time">${getRandomTime()}</div>
+                    </div>
+                `
+            }
+        ];
+
+        function getRandomTime() {
+            const times = ['1m', '5m', '15m', '1h', '2h', '3h', '4h', '5h', '6h', '12h', '1d', '2d', '3d', '4d', '5d', '1w'];
+            return times[Math.floor(Math.random() * times.length)];
+        }
+
+        function getRandomComment() {
+            const comments = [
+    'Amazing! 🔥', 'Love this shot! 📸', 'Perfect moment captured! ✨',
+    'This is incredible! 👏', 'Beautiful composition! 🎨', 'Stunning! 💫',
+    'Great work! 🙌', 'This made my day! 🌟', 'Absolutely fantastic! 💯',
+    'Damn!', 'Never gonna give you up', 'Really need a cat rn',
+    'Downfall is real', 'Send help', 'Make this end',
+    'Your talent is unmatched! 🎨', 'Every detail is perfect! ✏️',
+    'How do you do this?! 😍', 'This belongs in a museum! 🖼️',
+    'Your style is so unique! ✨', 'The shading is flawless! 🖌️',
+    'You are a true artist! 🌟', 'This piece speaks volumes! 📖',
+    'I am in awe of your talent! 😮', 'Keep creating masterpieces! 🎉',
+    'Your use of color is brilliant! 🌈', 'How is this even real?! 😭',
+    'Your imagination knows no bounds! 🌌', 'This is a work of genius! 🧠',
+    'I could look at this all day! 👀', 'Your attention to detail is insane! 🤯',
+    'The emotion in this is incredible! 💕', 'You are so gifted! ✍️',
+    'Every stroke tells a story! 🖋️', 'You are outdone yourself! 👏',
+    'Can I frame this? 🖼️', 'I wish I had your skills! 😍',
+    'This is pure magic! ✨', 'You have captured something special here! 🌟',
+    'You just keep getting better! 🚀', 'Your art inspires me so much! 💖',
+    'This is on another level! 🎨', 'You bring ideas to life! 🌱',
+    'This feels like it is alive! 🕊️', 'Every piece you make is amazing! 🌈',
+    'I am obsessed with this! 😍', 'Teach me your ways! 🙏',
+    'You have mastered your craft! 👑', 'Art goals! 🖌️'
+]
+;
+            return comments[Math.floor(Math.random() * comments.length)];
+        }
+
+        function getRandomNote() {
+            const notes = [
+    'Check this out!', 'Thought you might like this',
+    'This reminded me of you', 'Have you seen this?',
+    'What do you think?', 'Miss you!', 'We should catch up!',
+    'You will love this!', 'Can not wait to hear your thoughts!',
+    'Guess what I found?', 'This made me smile, thought it might do the same for you!',
+    'Don not miss this!', 'Just for you!', 'Something fun for you!',
+    'Had to share this!', 'This is so you!', 'You will appreciate this!',
+    'Check this gem out!', 'You have to see this!', 'Let me know your thoughts!',
+    'This one is interesting!', 'Sending some inspiration your way!',
+    'Thought this might cheer you up!', 'A little something for you!',
+    'This got me thinking of you!', 'Sharing some good vibes!',
+    'You will find this fascinating!', 'Saw this and had to share!',
+    'This is right up your alley!', 'You will get a kick out of this!',
+    'This will make your day!', 'Can not wait to hear what you think!',
+    'You need to check this out!', 'Thought this might brighten your day!',
+    'A little surprise for you!', 'Sharing this because it is amazing!',
+    'This is too good not to share!', 'You are going to love this!',
+    'Something cool I found!', 'Wanted to brighten your day!',
+    'This will blow your mind!', 'Sharing this just because!',
+    'Take a look at this!', 'This totally reminded me of you!',
+    'Passing this along to you!', 'Saw this and thought of you!'
+]
+;
+            return notes[Math.floor(Math.random() * notes.length)];
+        }
+        function generateNotifications(count = 10) {
+            const container = document.getElementById('notifications-list');
+            for (let i = 0; i < count; i++) {
+                const notificationType = notificationTypes[Math.floor(Math.random() * notificationTypes.length)];
+                const username = userNames[Math.floor(Math.random() * userNames.length)];
+                
+                const notificationItem = document.createElement('div');
+                notificationItem.className = 'notification-item';
+                notificationItem.innerHTML = notificationType.template(username);
+                container.appendChild(notificationItem);
+            }
+        }
+        generateNotifications(15);
+        let isLoading = false;
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && !isLoading) {
+                isLoading = true;
+                setTimeout(() => {
+                    generateNotifications(5);
+                    isLoading = false;
+                }, 500);
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('follow-button')) {
+                e.stopPropagation();
+                if (e.target.textContent === 'Follow') {
+                    e.target.textContent = 'Following';
+                    e.target.classList.add('following-button');
+                } else {
+                    e.target.textContent = 'Follow';
+                    e.target.classList.remove('following-button');
+                }
+            }
+            if (e.target.closest('.notification-item')) {
+                const dot = e.target.closest('.notification-item').querySelector('.notification-dot');
+                if (dot) {
+                    dot.style.display = 'none';
+                }
+            }
+        });
+    </script>
+    <script src="nav.js"></script>
+</body>
+</html>

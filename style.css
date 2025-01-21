@@ -23,7 +23,7 @@ body {
 .sidebar {
     width: 250px;
     background-color: #000; 
-    padding: 20px;
+    padding: 15px;
     height: 100vh;
     position: fixed;
     border-right: 1px solid #262626;
@@ -58,7 +58,7 @@ body {
     color: #fff;
     text-decoration: none;
     padding: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
     border-radius: 8px;
     gap: 16px; 
     transition: background-color 0.3s ease;
@@ -620,22 +620,19 @@ margin-right: 10px;
     color: #4a4a4a; 
 }
 ::-webkit-scrollbar {
-    width: 7px; 
-    height: 12px; 
+    width: 8px;
+    height: 8px;
 }
-
 
 ::-webkit-scrollbar-track {
-    background-color: #323232; 
+    background: transparent;
 }
-
 
 ::-webkit-scrollbar-thumb {
-    background-color: #4c4a4a; 
-    border-radius: 2px; 
+    background: #424242;
+    border-radius: 4px;
 }
 
-
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #555555; 
+    background: #555;
 }

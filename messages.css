@@ -1,0 +1,250 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.dark-mode {
+    background-color: #000;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Navbar Styles */
+.navbar {
+    width: 72px;
+    border-right: 1px solid #262626;
+    padding: 8px 12px;
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 24px;
+}
+
+.nav-item {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+    background-color: #1a1a1a;
+}
+
+.nav-item.active {
+    color: #fff;
+}
+
+.nav-item.profile {
+    margin-top: auto;
+}
+
+.profile-img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+/* Messages Container Styles */
+.messages-container {
+    width: 380px;
+    border-right: 1px solid #262626;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid #262626;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.compose {
+    cursor: pointer;
+}
+
+/* Notes Section Styles */
+.notes-section {
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid #262626;
+}
+
+.note-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.note-img-container {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid #262626;
+    padding: 2px;
+}
+
+.note-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Messages List Styles */
+.messages-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.message-item {
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.message-item:hover {
+    background-color: #1a1a1a;
+}
+
+.message-profile-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+}
+
+.message-content {
+    flex: 1;
+    padding: 8px 0;
+}
+
+.message-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.message-preview {
+    color: #8e8e8e;
+    font-size: 14px;
+}
+
+/* Message Screen Styles */
+.message-screen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+.empty-state {
+    text-align: center;
+}
+
+.messenger-icon {
+    font-size: 96px;
+    margin-bottom: 16px;
+}
+
+.empty-state h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: #8e8e8e;
+    margin-bottom: 24px;
+}
+
+.send-message-btn {
+    background-color: #0095f6;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.send-message-btn:hover {
+    background-color: #1877f2;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .navbar {
+        width: 100%;
+        height: 60px;
+        position: fixed;
+        bottom: 0;
+        border-top: 1px solid #262626;
+        border-right: none;
+    }
+    
+    .nav-items {
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 0;
+    }
+    
+    .nav-item {
+        padding: 8px;
+    }
+    
+    .messages-container {
+        width: 100%;
+    }
+    
+    .message-screen {
+        display: none;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #424242;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

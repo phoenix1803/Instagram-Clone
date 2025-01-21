@@ -7,52 +7,179 @@
     <link rel="icon" href="assets\instagram.png" type="image/png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .search-modal {
+    display: none;
+    position: fixed;
+    left: 66px;
+    top: 0;
+    width: 397px;
+    height: 100vh;
+    background-color: #000;
+    z-index: 1000;
+    border-right: 1px solid #262626;
+}
+
+.search-modal-content {
+    padding: 24px 24px 0;
+}
+
+.search-header {
+    margin-bottom: 24px;
+}
+
+.search-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+.searchbox {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #262626;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.recent-searches {
+    padding: 12px 0;
+}
+
+.recent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    margin-bottom: 12px;
+}
+
+.recent-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.clear-all {
+    color: #0095f6;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.clear-all:hover {
+    color: #fff;
+}
+
+.recent-search-item {
+    transition: background-color 0.2s;
+}
+
+.recent-search-item:hover {
+    background-color: #262626;
+}
+
+.recent-search-item .remove-search {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.recent-search-item:hover .remove-search {
+    opacity: 1;
+}
+
+.remove-search:hover {
+    color: #fff !important;
+}
+
+.search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 470px;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <a href="#">
+            <a href="index.html">
                 <img src="assets\logo.svg" alt="Instagram Logo" width="150" />
             </a>
-            <a href="#">
+            <a href="home.html">
                 <img src="assets\icons\home.svg" alt="Home" width="24" height="24"/>
                 Home
             </a>
-            <a href="#">
+            <a href="#" id="searchBtn">
                 <img src="assets\icons\search.svg" alt="Search" width="24" height="24"/>
                 Search
             </a>
-            <a href="#">
+            <a href="explore.html">
                 <img src="assets\icons\compass.svg" alt="Explore" width="24" height="24"/>
                 Explore
             </a>
-            <a href="#">
+            <a href="reels.html">
                 <img src="assets\icons\reels.svg" alt="Reels" width="24" height="24"/>
                 Reels
             </a>
-            <a href="#">
+            <a href="messeges.html">
                 <img src="assets\icons\messenger.svg" alt="Messages" width="24" height="24"/>
                 Messages
-                <span class="notification">2</span>
             </a>
-            <a href="#">
+            <a href="notification.html">
                 <img src="assets/icons/heart.svg" alt="Notifications" width="24" height="24"/>
                 Notifications
             </a>
-            <a href="#">
+            <a href="create.html">
                 <img src="assets\icons\add.svg" alt="Create" width="24" height="24"/>
                 Create
             </a>
-            <a href="#">
+            <a href="profile.html">
                 <img src="assets\my.pfp.jpg" alt="Profile" width="24" height="24"/>
-                Profile
+                Profile       
             </a>
-            <a href="#">
+            <a href="settings.html">
                 <img src="assets\icons\more.svg" alt="More" width="24" height="24"/>
                 More
             </a>
         </div>
-
+        <div class="search-modal" id="searchModal">
+            <div class="search-modal-content">
+                <div class="search-header">
+                    <h2>Search</h2>
+                    <div class="searchbox">
+                        <input type="text" class="search-input" placeholder="Search" />
+                        
+                    </div>
+                </div>
+                <div class="recent-searches">
+                    <div class="recent-header">
+                        <h3>Recent</h3>
+                        <span class="clear-all">Clear all</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="search-overlay" id="searchOverlay"></div>
+        </div>
         <div class="main-content">
             <!-- Mobile Top Bar (Visible only on mobile screens) -->
             <div class="top-bar">
@@ -62,7 +189,7 @@
                 <div class="top-right">
                     <input type="text" class="search-box" placeholder="Search" />
 
-                    <a href="#" class="notification-icon" style="margin-top: 10px;">
+                    <a href="notification.html" class="notification-icon" style="margin-top: 10px;">
                         <img src="assets/icons/heart.svg" alt="Notifications" width="27" height="25" />
                     </a>
                     
@@ -669,47 +796,30 @@
 
         <nav class="mobile-nav">
             <div class="mobile-nav-items">
-                <a href="#"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
-                <a href="#"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
-                <a href="#"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
-                <a href="#"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
-                <a href="#"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
-                <a href="#"><img src="assets\my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
+                <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+                <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+                <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+                <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+                <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+                <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
             </div>
         </nav>
     </div>
     <script>document.addEventListener('DOMContentLoaded', function () {
-        // Select all heart icons and loop through each of them
         document.querySelectorAll('.heart-icon').forEach(heartIcon => {
             heartIcon.addEventListener('click', function () {
-                // Find the closest parent .post element of the clicked heart icon
                 const post = this.closest('.post');
-                // Find the like count element inside that post
                 const likeCountElement = post.querySelector('.like-count');
-    
-                // Ensure the like count element exists and is a number
                 if (!likeCountElement) return;
-    
-                // Get the current like count and parse it to an integer
-                let currentCount = parseInt(likeCountElement.textContent, 10);
-    
-                // Debugging: Ensure correct elements are being targeted
+                    let currentCount = parseInt(likeCountElement.textContent, 10);
                 console.log("Clicked on heart icon in post:", post);
                 console.log("Current like count:", currentCount);
-    
-                // Toggle the heart icon between filled and outline (liked vs unliked)
-                this.classList.toggle('fas'); // Toggle filled heart
-                this.classList.toggle('far'); // Toggle outline heart
-    
-                // Toggle liked class (optional, for adding red color)
+                    this.classList.toggle('fas'); 
+                this.classList.toggle('far'); 
                 this.classList.toggle('liked');
-    
-                // Increment or decrement the like count based on heart icon state
-                if (this.classList.contains('fas')) {
-                    // If heart is filled (liked), increment the like count
+                    if (this.classList.contains('fas')) {
                     likeCountElement.textContent = currentCount + 1;
                 } else {
-                    // If heart is outlined (unliked), decrement the like count
                     likeCountElement.textContent = currentCount - 1;
                 }
             });
@@ -717,5 +827,6 @@
     });
     
     </script>
+    <script src="nav.js"></script>
 </body>  
 </html>

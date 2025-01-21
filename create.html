@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets\instagram.png" type="image/png" />
+    <title>Create</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .create-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .create-modal {
+            background-color: #262626;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #363636;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .modal-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .upload-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-right: 1px solid #363636;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #f5f5f5;
+        }
+
+        .upload-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .upload-btn {
+            background-color: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background-color: #1877f2;
+        }
+
+        .edit-section {
+            flex: 1;
+            display: none;
+            padding: 20px;
+        }
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .edit-tabs {
+            display: flex;
+            border-bottom: 1px solid #363636;
+            margin-bottom: 20px;
+        }
+
+        .edit-tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            color: #a8a8a8;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .edit-tab.active {
+            color: #f5f5f5;
+        }
+
+        .edit-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #f5f5f5;
+        }
+
+        .edit-content {
+            padding: 20px 0;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 16px;
+        }
+
+        .filter-item {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .filter-preview {
+            width: 100%;
+            height: 120px;
+            background-color: #363636;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .filter-name {
+            font-size: 12px;
+            color: #a8a8a8;
+        }
+
+        .edit-tools {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tool-group {
+            padding: 12px;
+            background-color: #363636;
+            border-radius: 8px;
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .tool-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tool-value {
+            font-size: 12px;
+            color: #a8a8a8;
+        }
+
+        .tool-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 2px;
+            background: #a8a8a8;
+            border-radius: 2px;
+        }
+        .tool-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .caption-section {
+            display: none;
+            padding: 20px;
+        }
+
+        .caption-textarea {
+            width: 100%;
+            min-height: 150px;
+            background-color: #363636;
+            border: none;
+            border-radius: 4px;
+            padding: 12px;
+            color: #f5f5f5;
+            font-size: 14px;
+            resize: none;
+            margin-bottom: 16px;
+        }
+
+        .caption-textarea::placeholder {
+            color: #a8a8a8;
+        }
+
+        .location-input {
+            width: 100%;
+            background-color: #363636;
+            border: none;
+            border-radius: 4px;
+            padding: 12px;
+            color: #f5f5f5;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .advanced-settings {
+            margin-top: 20px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #363636;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-title {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .setting-description {
+            font-size: 12px;
+            color: #a8a8a8;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #8e8e8e;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: #fff;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #0095f6;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .share-btn {
+            background-color: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .share-btn:disabled {
+            background-color: #004c8b;
+            cursor: not-allowed;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .custom-alert {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #262626;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+        text-align: center;
+        min-width: 300px;
+    }
+
+    .alert-icon {
+        color: #0095f6;
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .alert-message {
+        color: #f5f5f5;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .alert-progress {
+        width: 100%;
+        height: 4px;
+        background-color: #363636;
+        border-radius: 2px;
+        margin-top: 16px;
+    }
+
+    .progress-bar {
+        width: 0%;
+        height: 100%;
+        background-color: #0095f6;
+        border-radius: 2px;
+        transition: width linear;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+    }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                flex-direction: column;
+            }
+
+            .upload-section,
+            .edit-section {
+                border-right: none;
+                border-bottom: 1px solid #363636;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="create-container">
+        <div class="create-modal">
+            <div class="modal-header">
+                <button class="back-btn" style="display: none;">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="modal-title">Create new post</h1>
+                <button class="next-btn" style="display: none;">Next</button>
+            </div>
+
+            <div class="modal-content">
+                <div class="upload-section">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <p class="upload-text">Drag photos and videos here</p>
+                    <input type="file" id="fileInput" accept="image/*,video/*" multiple class="visually-hidden">
+                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                        Select from computer
+                    </button>
+                </div>
+
+                <div class="edit-section">
+                    <div class="edit-tabs">
+                        <div class="edit-tab active" data-tab="filters">Filters</div>
+                        <div class="edit-tab" data-tab="adjustments">Adjustments</div>
+                    </div>
+
+                    <div class="edit-content">
+                        <img id="previewImage" class="preview-image">
+
+                        <div class="filters-grid">
+                            <div class="filter-item">
+                                <div class="filter-preview"></div>
+                                <span class="filter-name">Normal</span>
+                            </div>
+                            <div class="filter-item">
+                                <div class="filter-preview"></div>
+                                <span class="filter-name">Clarendon</span>
+                            </div>
+                            <div class="filter-item">
+                                <div class="filter-preview"></div>
+                                <span class="filter-name">Gingham</span>
+                            </div>
+                            <div class="filter-item">
+                                <div class="filter-preview"></div>
+                                <span class="filter-name">Moon</span>
+                            </div>
+                            <div class="filter-item">
+                                <div class="filter-preview"></div>
+                                <span class="filter-name">Lark</span>
+                            </div>
+                            <div class="filter-item">
+                                <div class="filter-preview"></div>
+                                <span class="filter-name">Reyes</span>
+                            </div>
+                        </div>
+
+                        <div class="edit-tools" style="display: none;">
+                            <div class="tool-group">
+                                <div class="tool-header">
+                                    <span class="tool-title">Brightness</span>
+                                    <span class="tool-value">0</span>
+                                </div>
+                                <input type="range" class="tool-slider" min="-100" max="100" value="0">
+                            </div>
+                            <div class="tool-group">
+                                <div class="tool-header">
+                                    <span class="tool-title">Contrast</span>
+                                    <span class="tool-value">0</span>
+                                </div>
+                                <input type="range" class="tool-slider" min="-100" max="100" value="0">
+                            </div>
+                            <div class="tool-group">
+                                <div class="tool-header">
+                                    <span class="tool-title">Saturation</span>
+                                    <span class="tool-value">0</span>
+                                </div>
+                                <input type="range" class="tool-slider" min="-100" max="100" value="0">
+                            </div>
+                            <div class="tool-group">
+                                <div class="tool-header">
+                                    <span class="tool-title">Temperature</span>
+                                    <span class="tool-value">0</span>
+                                </div>
+                                <input type="range" class="tool-slider" min="-100" max="100" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="caption-section">
+                    <textarea class="caption-textarea" placeholder="Write a caption..."></textarea>
+                    <input type="text" class="location-input" placeholder="Add location">
+                    
+                    <div class="advanced-settings">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Hide likes and views</div>
+                                <div class="setting-description">Only you will see the total number of likes and views on this post</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Turn off commenting</div>
+                                <div class="setting-description">You can change this later</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Share to Facebook</div>
+                                <div class="setting-description">Post will be shared to your connected Facebook account</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="share-btn" disabled>Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+const fileInput = document.getElementById('fileInput');
+const uploadSection = document.querySelector('.upload-section');
+const editSection = document.querySelector('.edit-section');
+const captionSection = document.querySelector('.caption-section');
+const backBtn = document.querySelector('.back-btn');
+const nextBtn = document.querySelector('.next-btn');
+const previewImage = document.getElementById('previewImage');
+const filterItems = document.querySelectorAll('.filter-item');
+const sliders = document.querySelectorAll('.tool-slider');
+const captionTextarea = document.querySelector('.caption-textarea');
+const locationInput = document.querySelector('.location-input');
+const shareBtn = document.querySelector('.share-btn');
+const overlay = document.querySelector('.overlay');
+const customAlert = document.querySelector('.custom-alert');
+const progressBar = document.querySelector('.progress-bar');
+let currentFilter = 'Normal';
+let selectedFile = null;
+let currentStep = 'upload';
+let imageFilters = {
+    brightness: 0,
+    contrast: 0,
+    saturation: 0,
+    temperature: 0
+};
+const filters = {
+    'Normal': '',
+    'Clarendon': 'contrast(120%) saturate(125%)',
+    'Gingham': 'brightness(105%) hue-rotate(350deg)',
+    'Moon': 'grayscale(100%) brightness(110%)',
+    'Lark': 'brightness(108%) saturate(104%) hue-rotate(350deg)',
+    'Reyes': 'sepia(22%) brightness(110%) contrast(85%)'
+};
+function switchToEdit() {
+    currentStep = 'edit';
+    uploadSection.style.display = 'none';
+    editSection.style.display = 'block';
+    captionSection.style.display = 'none';
+    backBtn.style.display = 'block';
+    nextBtn.style.display = 'block';
+    updateNavButtons();
+}
+
+function switchToCaption() {
+    currentStep = 'caption';
+    uploadSection.style.display = 'none';
+    editSection.style.display = 'none';
+    captionSection.style.display = 'block';
+    updateNavButtons();
+}
+
+function switchToUpload() {
+    currentStep = 'upload';
+    uploadSection.style.display = 'flex';
+    editSection.style.display = 'none';
+    captionSection.style.display = 'none';
+    backBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+}
+
+function updateNavButtons() {
+    backBtn.style.display = 'block';
+    if (currentStep === 'edit') {
+        backBtn.textContent = 'Back';
+        nextBtn.textContent = 'Next';
+        nextBtn.style.display = 'block';
+    } else if (currentStep === 'caption') {
+        backBtn.textContent = 'Back';
+        nextBtn.style.display = 'none';
+    }
+}
+
+function initializeFilterPreviews() {
+    const filterItems = document.querySelectorAll('.filter-item');
+    filterItems.forEach(filter => {
+        const filterName = filter.querySelector('.filter-name').textContent;
+        const preview = filter.querySelector('.filter-preview');
+        preview.innerHTML = '';
+        if (selectedFile && preview) {
+            const img = document.createElement('img');
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            img.style.filter = filters[filterName];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                img.src = e.target.result;
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    });
+}
+function applyImageEffects() {
+    const baseFilter = filters[currentFilter] || '';
+    const adjustments = `
+        brightness(${100 + imageFilters.brightness}%) 
+        contrast(${100 + imageFilters.contrast}%) 
+        saturate(${100 + imageFilters.saturation}%)
+        ${imageFilters.temperature > 0 ? 
+            `sepia(${imageFilters.temperature}%)` : 
+            `hue-rotate(${imageFilters.temperature}deg)`}
+    `;
+    
+    previewImage.style.filter = baseFilter + ' ' + adjustments;
+}
+function validateFile(file) {
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    const validVideoTypes = ['video/mp4', 'video/quicktime', 'video/webm'];
+    
+    if (validImageTypes.includes(file.type)) {
+        return 'image';
+    } else if (validVideoTypes.includes(file.type)) {
+        return 'video';
+    }
+    return null;
+}
+
+function handleFileSelect(file) {
+    const fileType = validateFile(file);
+    
+    if (!fileType) {
+        alert('Please select a valid image or video file');
+        return;
+    }
+    
+    selectedFile = file;
+    const reader = new FileReader();
+    
+    previewImage.style.opacity = '0.5';
+    
+    reader.onload = function(e) {
+        previewImage.src = e.target.result;
+        previewImage.style.opacity = '1';
+        initializeFilterPreviews();
+        switchToEdit();
+    };
+    
+    reader.onerror = function() {
+        alert('Error reading file');
+        previewImage.style.opacity = '1';
+    };
+    
+    reader.readAsDataURL(file);
+}
+
+uploadSection.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadSection.style.backgroundColor = '#363636';
+});
+
+uploadSection.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    uploadSection.style.backgroundColor = 'transparent';
+});
+uploadSection.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadSection.style.backgroundColor = 'transparent';
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        handleFileSelect(files[0]);
+    }
+});
+fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+    }
+});
+backBtn.addEventListener('click', () => {
+    if (currentStep === 'edit') {
+        switchToUpload();
+    } else if (currentStep === 'caption') {
+        switchToEdit();
+    }
+});
+nextBtn.addEventListener('click', () => {
+    if (currentStep === 'edit') {
+        switchToCaption();
+    }
+});
+
+const editTabs = document.querySelectorAll('.edit-tab');
+const filtersGrid = document.querySelector('.filters-grid');
+const editTools = document.querySelector('.edit-tools');
+
+editTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        editTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        const isFilters = tab.dataset.tab === 'filters';
+        filtersGrid.style.display = isFilters ? 'grid' : 'none';
+        editTools.style.display = isFilters ? 'none' : 'flex';
+    });
+});
+filterItems.forEach(filter => {
+    filter.addEventListener('click', () => {
+        filterItems.forEach(f => f.classList.remove('active'));
+        filter.classList.add('active');
+        currentFilter = filter.querySelector('.filter-name').textContent;
+        applyImageEffects();
+    });
+});
+sliders.forEach(slider => {
+    slider.addEventListener('input', (e) => {
+        const value = e.target.value;
+        const tool = slider.parentElement.querySelector('.tool-title').textContent.toLowerCase();
+        slider.parentElement.querySelector('.tool-value').textContent = value;
+        imageFilters[tool] = parseInt(value);
+        applyImageEffects();
+    });
+});
+
+function updateShareButton() {
+    if (shareBtn) {
+        shareBtn.disabled = !selectedFile;
+    }
+}
+function showCustomAlert() {
+    if (!overlay || !customAlert || !progressBar) return;
+    overlay.style.display = 'block';
+    customAlert.style.display = 'block';
+    progressBar.style.transition = 'width 7s linear';
+    progressBar.style.width = '100%';
+    const redirectToHome = () => {
+        window.location.href = 'home.html';
+    };
+
+    overlay.addEventListener('click', () => {
+    window.location.href = 'home.html';
+});
+
+customAlert.addEventListener('click', () => {
+    window.location.href = 'home.html';
+});
+
+    
+    setTimeout(redirectToHome, 7000);
+}
+
+async function sharePost() {
+    if (!selectedFile) return;
+    
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+    formData.append('caption', captionTextarea?.value || '');
+    formData.append('location', locationInput?.value || '');
+    formData.append('filters', previewImage.style.filter);
+    
+    try {
+        shareBtn.disabled = true;
+        shareBtn.textContent = 'Sharing...';
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        showCustomAlert();
+    } catch (error) {
+        alert('Error sharing post. Please try again.');
+    } finally {
+        shareBtn.disabled = false;
+        shareBtn.textContent = 'Share';
+    }
+}
+shareBtn.addEventListener('click', () => {
+    sharePost();
+});
+captionTextarea?.addEventListener('input', updateShareButton);
+locationInput?.addEventListener('input', updateShareButton);
+shareBtn?.addEventListener('click', sharePost);
+</script>
+    <div class="overlay"></div>
+    <div class="custom-alert">
+        <i class="fas fa-check-circle alert-icon"></i>
+        <div class="alert-message">Post shared successfully!</div>
+        <div class="alert-progress">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct/Inbox</title>
+    <link rel="icon" href="assets\instagram.png" type="image/png" />
+    <link rel="stylesheet" href="messages.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+            .search-modal {
+    display: none;
+    position: fixed;
+    left: 66px;
+    top: 0;
+    width: 397px;
+    height: 100vh;
+    background-color: #000;
+    z-index: 1000;
+    border-right: 1px solid #262626;
+}
+
+.search-modal-content {
+    padding: 24px 24px 0;
+}
+
+.search-header {
+    margin-bottom: 24px;
+}
+
+.search-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+.searchbox {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #262626;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.recent-searches {
+    padding: 12px 0;
+}
+
+.recent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    margin-bottom: 12px;
+}
+
+.recent-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.clear-all {
+    color: #0095f6;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.clear-all:hover {
+    color: #fff;
+}
+
+.recent-search-item {
+    transition: background-color 0.2s;
+}
+
+.recent-search-item:hover {
+    background-color: #262626;
+}
+
+.recent-search-item .remove-search {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.recent-search-item:hover .remove-search {
+    opacity: 1;
+}
+
+.remove-search:hover {
+    color: #fff !important;
+}
+
+.search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 470px;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+@media (max-width: 768px) {
+    .navbar{
+        display: none;
+    }
+    .top-bar{
+        display: none;
+    }
+}
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-items">
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" class="bi bi-instagram" viewBox="0 0 16 16">
+                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                      </svg>
+                </a>
+                <a href="home.html">
+                    <img src="assets\icons\home.svg" alt="Home" width="24" height="24"/>
+                </a>
+                <a href="#" id="searchBtn">
+                    <img src="assets\icons\search.svg" alt="Search" width="24" height="24"/>
+                </a>
+                <a href="explore.html">
+                    <img src="assets\icons\compass.svg" alt="Explore" width="24" height="24"/>
+                </a>
+                <a href="reels.html">
+                    <img src="assets\icons\reels.svg" alt="Reels" width="24" height="24"/>
+                </a>
+                <a href="messeges.html">
+                    <img src="assets\icons\messenger.svg" alt="Messages" width="24" height="24"/>
+                </a>
+                <a href="notification.html">
+                    <img src="assets/icons/heart.svg" alt="Notifications" width="24" height="24"/>
+                </a>
+                <a href="create.html">
+                    <img src="assets\icons\add.svg" alt="Create" width="24" height="24"/>
+                </a>
+                <a href="profile.html">
+                    <img src="assets\my.pfp.jpg" alt="Profile" width="24" height="24"/>     
+                </a>
+                <a href="settings.html">
+                    <img src="assets\icons\more.svg" alt="More" width="24" height="24"/>
+                </a>
+            </div>
+            <div class="search-modal" id="searchModal">
+                <div class="search-modal-content">
+                    <div class="search-header">
+                        <h2>Search</h2>
+                        <div class="searchbox">
+                            <input type="text" class="search-input" placeholder="Search" />
+                            
+                        </div>
+                    </div>
+                    <div class="recent-searches">
+                        <div class="recent-header">
+                            <h3>Recent</h3>
+                            <span class="clear-all">Clear all</span>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="search-overlay" id="searchOverlay"></div>
+            </div>
+        </nav>
+        <nav class="mobile-nav">
+            <div class="mobile-nav-items">
+                <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+                <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+                <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+                <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+                <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+                <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
+            </div>
+            
+        </nav>
+        <div class="messages-container">
+            <div class="messages-header">
+                <div class="username">
+                    prakhar_1803_ <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="compose">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+            </div>
+            <div class="notes-section">
+                <div class="note-item">
+                    <div class="note-img-container">
+                        <img src="/api/placeholder/56/56" alt="Your note" class="note-img">
+                    </div>
+                    <span>Your note</span>
+                </div>
+                <div class="note-item">
+                    <div class="note-img-container">
+                        <img src="/api/placeholder/56/56" alt="Ryan Chandra" class="note-img">
+                    </div>
+                    <span>Ryan Chandra</span>
+                </div>
+                <div class="note-item">
+                    <div class="note-img-container">
+                        <img src="/api/placeholder/56/56" alt="HOMELANDER" class="note-img">
+                    </div>
+                    <span>HOMELANDER</span>
+                </div>
+            </div>
+            <div class="messages-list">
+                <div class="message-item">
+                    <img src="/api/placeholder/56/56" alt="mam ji" class="message-profile-img">
+                    <div class="message-content">
+                        <div class="message-name">test</div>
+                        <div class="message-preview">hello · 13m</div>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <img src="/api/placeholder/56/56" alt="Tiddi" class="message-profile-img">
+                    <div class="message-content">
+                        <div class="message-name">test</div>
+                        <div class="message-preview">123 · 23m</div>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <img src="/api/placeholder/56/56" alt="khargosh" class="message-profile-img">
+                    <div class="message-content">
+                        <div class="message-name">test</div>
+                        <div class="message-preview">sent an attachment · 1h</div>
+                    </div>
+                </div>
+                <div class="message-item">
+                </div>
+             
+            </div>
+        </div>
+        <div class="message-screen">
+            <div class="empty-state">
+                <div class="messenger-icon">
+                    <i class="fa-brands fa-facebook-messenger"></i>
+                </div>
+                <h2>Your messages</h2>
+                <p>Send a message to start a chat.</p>
+                <button class="send-message-btn">Send message</button>
+            </div>
+        </div>
+    </div>
+    <script src="nav.js"></script>
+</body>
+</html>
