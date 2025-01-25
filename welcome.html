@@ -6,22 +6,83 @@
     <title>Instagram Welcome</title>
     <link rel="icon" href="assets\instagram.png" type="image/png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        .main-content .save-login-box {
-            background-color: #121212;
-            padding: 30px;
-            border: 1px solid #262626;
-            border-radius: 10px;
-            width: 350px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-sizing: border-box;
-            margin: auto;
-        }
-        .main-content {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #000;
+    color: #fff; 
+    overflow-x: hidden;
+}
+.container {
+    display: flex;
+    max-width: 100%; 
+    margin: 0 auto;
+    flex-wrap: wrap;
+    min-width: 375px;
+}
+.sidebar {
+    width: 250px;
+    background-color: #000; 
+    padding: 15px;
+    height: 100vh;
+    position: fixed;
+    border-right: 1px solid #262626;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+.line {
+    flex: 1;
+    height: 1px;
+    background: #262626;
+    margin: 15px 0px 10px 0px;
+}
+.sidebar h1 {
+    font-family: 'Instagram Sans', sans-serif;
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    margin-bottom: 32px;
+}
+.sidebar h1 svg {
+    fill: #fff; 
+    margin-right: 8px; 
+}
+.sidebar a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    gap: 16px; 
+    transition: background-color 0.3s ease;
+}
+.sidebar a:hover {
+    background-color: #1a1a1a; 
+}
+.sidebar a svg {
+    fill: #fff; 
+    width: 24px; 
+    height: 24px;
+}
+.sidebar a .notification {
+    background-color: #ed4956;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+.main-content {
     flex: 1;
     margin-left: 250px; 
     margin-right: 300px; 
@@ -29,85 +90,138 @@
     max-width: calc(100% - 550px);
     box-sizing: border-box; 
     transition: margin 0.3s ease, max-width 0.3s ease;
-
+    overflow-x: hidden;
+}
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #121212;
+    border-top: 1px solid #262626;
+    z-index: 1000;
+}
+.mobile-nav-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+}
+.mobile-nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+.save-login-box {
+    background-color: #121212;
+    padding: 30px;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: auto;
+}
+.save-login-box .icon {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.save-login-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+.save-login-box p {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.save-login-box button {
+    background-color: #0095f6;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+.save-login-box button:hover {
+    background-color: #0078cc;
+}
+.save-login-box .not-now {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #0095f6;
+    text-decoration: none;
+    cursor: pointer;
+}
+.save-login-box .not-now:hover {
+    text-decoration: none;
+    color: #ffffff;
 }
 
-        .main-content .save-login-box .icon {
-            width: 60px;
-            height: 60px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+@media (max-width: 1160px) {
+    .main-content {
+        margin-right: 0;
+        max-width: calc(100% - 250px); 
+    }
+}
+@media (max-width: 768px) {
+    .sidebar {
+        display: none; 
+    }
 
-        .main-content .save-login-box h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
+    .main-content {
+        margin-left: 0; 
+        margin-right: 0; 
+        max-width: 100%; 
+        padding: 10px; 
+    }
 
-        .main-content .save-login-box p {
-            color: #b3b3b3;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
+    .mobile-nav {
+        display: block;
+    }
 
-        .main-content .save-login-box button {
-            background-color: #0095f6;
-            color: white;
-            font-weight: bold;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            width: 80%;
-        }
-        @media (min-width:800px){
-    .mobile-nav{
-                display: none;
-            }
+    .save-login-box {
+        width: 90%; 
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-        .main-content .save-login-box button:hover {
-            background-color: #0078cc;
-        }
+::-webkit-scrollbar-thumb {
+    background: #424242;
+    border-radius: 4px;
+}
 
-        .main-content .save-login-box .not-now {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #0095f6;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .main-content .save-login-box .not-now:hover {
-            text-decoration: none;
-            color:#ffffff ;
-        }
-
-    
-
-       
-        @media (max-width: 768px) {
-            .main-content .save-login-box {
-                width: 90%; 
-                
-            }
-            .save-login-box {
-                width: 90vw; 
-                margin: 0;
-                padding: 0;
-                position: relative;
-                top: 40%;
-                right: 25%;
-            }
-        }
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
     </style>
 </head>
 <body>
+    
     <div class="container">
         <div class="sidebar">
             <a href="index.html">
@@ -150,7 +264,6 @@
                 More
             </a>
         </div>
-        
         <div class="main-content">
             <div class="save-login-box">
                 <div class="icon">
@@ -159,20 +272,24 @@
                 
                 <h2>Save your login info?</h2>
                 <p>We can save your login info on this browser so you don't need to enter it again.</p>
-                <button>Save Info</button>
+                <a href="home.html">
+                    <button>Save Info</button>
+                </a>
                 <a href="home.html" class="not-now">Not now</a>
             </div>
+            <nav class="mobile-nav">
+                <div class="mobile-nav-items">
+                    <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
+                    <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
+                    <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
+                    <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
+                    <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
+                    <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
+                </div>
+            </nav>
         </div>
-        <nav class="mobile-nav">
-            <div class="mobile-nav-items">
-                <a href="home.html"><img src="assets/icons/home.svg" alt="Home" width="24" height="24"></a>
-                <a href="explore.html"><img src="assets/icons/compass.svg" alt="Explore" width="24" height="24"></a>
-                <a href="reels.html"><img src="assets/icons/reels.svg" alt="Reels" width="24" height="24"></a>
-                <a href="create.html"><img src="assets/icons/add.svg" alt="Create" width="24" height="24"></a>
-                <a href="messeges.html"><img src="assets/icons/messenger.svg" alt="Messages" width="24" height="24"></a>
-                <a href="profile.html"><img src="assets/my.pfp.jpg" alt="Notifications" width="24" height="24"></a>
-            </div>
-        </nav>
+    
+       
         
             
         
